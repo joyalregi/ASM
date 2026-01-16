@@ -1,0 +1,53 @@
+<div>
+    <div class="field">
+        <label class="label" for="start-date">Select Starting Date:</label>
+        <div class="control">
+            <input class="input" type="date" id="start-date" [(ngModel)]="startDate" name="start-date">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label" for="end-date">Select End Date:</label>
+        <div class="control">
+            <input class="input" type="date" id="end-date" [(ngModel)]="endDate" name="end-date">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label" for="userSelect">Select User:</label>
+        <div class="control">
+            <div class="select is-fullwidth">
+                <select id="userSelect" (change)="onSelectUser($event)">
+                    <option value="">-- Fetch All --</option>
+                    @if(users.length==0){
+                    <option value="">-- Network Error Contact Admin --</option>
+                    }
+                    @for (user of users; track user.userID) {
+                    <option [value]="user.userID">
+                        {{ user.userName }}
+                    </option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    @if (showSecondbutton) {
+    <div class="field">
+        <div class="control">
+            <button class="button is-primary" (click)="getSelectedUserAttendance()" type="submit">
+                Generate Attendance
+            </button>
+        </div>
+    </div>
+    }
+    @if (!showSecondbutton) {
+    <div class="field">
+        <div class="control">
+            <button class="button is-primary" (click)="getAllAttendance()" type="submit">
+                Generate All
+            </button>
+        </div>
+    </div>
+    }
+</div>

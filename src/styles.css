@@ -1,0 +1,196 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'bulma/css/bulma.min.css';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Modern Button Styles */
+.button {
+    border-radius: 12px;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.button:hover::before {
+    left: 100%;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Primary Button */
+.button.is-primary {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #ffffff;
+}
+
+.button.is-primary:hover {
+    background: linear-gradient(135deg, #5b5ff0, #7c3aed);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Success Button */
+.button.is-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #ffffff;
+}
+
+.button.is-success:hover {
+    background: linear-gradient(135deg, #1fb954, #15803d);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+}
+
+/* Danger Button */
+.button.is-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #ffffff;
+}
+
+.button.is-danger:hover {
+    background: linear-gradient(135deg, #e63939, #c91a1a);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+/* Info Button */
+.button.is-info {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #ffffff;
+}
+
+.button.is-info:hover {
+    background: linear-gradient(135deg, #2b72f0, #1d4ed8);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Default Button */
+.button:not(.is-primary):not(.is-success):not(.is-danger):not(.is-info):not(.is-warning):not(.is-light):not(.is-dark) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e5e7eb;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.button:not(.is-primary):not(.is-success):not(.is-danger):not(.is-info):not(.is-warning):not(.is-light):not(.is-dark):hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Button with Icon */
+.button .icon {
+    margin-right: 6px;
+}
+
+/* Disabled Button */
+.button:disabled,
+.button.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.button:disabled:hover,
+.button.is-disabled:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Modern Input Styles */
+.input,
+.textarea,
+.select select {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    color: #e5e7eb !important;
+    transition: all 0.2s ease !important;
+}
+
+.input:focus,
+.textarea:focus,
+.select select:focus {
+    outline: none !important;
+    border-color: rgba(99, 102, 241, 0.6) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+    color: #64748b !important;
+}
+
+/* Modern Label Styles */
+.label {
+    color: #cbd5e1 !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+}
+
+/* Modern Box/Card Styles */
+.box {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 16px !important;
+    padding: 24px !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Modern Notification Styles */
+.notification {
+    border-radius: 12px !important;
+    padding: 16px 20px !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.notification.is-warning {
+    background: rgba(251, 191, 36, 0.1) !important;
+    border: 1px solid rgba(251, 191, 36, 0.3) !important;
+    color: #fbbf24 !important;
+}
+
+.notification.is-success {
+    background: rgba(34, 197, 94, 0.1) !important;
+    border: 1px solid rgba(34, 197, 94, 0.3) !important;
+    color: #22c55e !important;
+}
+
+.notification.is-danger {
+    background: rgba(239, 68, 68, 0.1) !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    color: #ef4444 !important;
+}
+
+.notification.is-info {
+    background: rgba(59, 130, 246, 0.1) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    color: #3b82f6 !important;
+}

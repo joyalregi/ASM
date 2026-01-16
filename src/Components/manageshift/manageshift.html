@@ -1,0 +1,65 @@
+@if(showmodal){
+<app-modal [attendanceData]="selectedProduct" [selected]="selected" (close)="handleClose()"></app-modal>
+}
+
+<div class=" box">
+    <h2 class="title is-4">Manage Shift</h2>
+    <app-filtershift (sendArray)="handleArrayFromChild($event)"
+        (sendStatus)="handlestatusFromChild($event)"></app-filtershift>
+    @if (attendanceData.length>0){
+    <div class="mt-5">
+        <h2 class="title is-4">Attendance Records</h2>
+
+
+        <div class="table-container">
+            <table class="table is-striped is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Work Duration</th>
+                        <th>Manage</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (record of attendanceData; track record.log_id) {
+                    <tr [class.highlight-row]="record.is_midnight_shift == 'Yes'">
+
+                        <td>{{ record.empID }}</td>
+                        <td>{{ record.empName }}</td>
+                        <td>{{ record.date }}</td>
+                        <td style="user-select: text; cursor: text;">{{ record.check_in }}</td>
+                        @if (record.check_out) {
+                        <td style="user-select: text; cursor: text;">{{ record.check_out }}</td>
+                        <td>{{ record.duration }}</td>
+                        }
+                        @else {
+                        <td style="user-select: text; cursor: text;">Shift is Open</td>
+                        <td style=" user-select: text; cursor: text">----</td>
+                        }
+
+                        <td>
+                            <button (click)="edit(record); $event.stopPropagation()" class="button is-info mr-1" type="button">Edit</button>
+                            <button (click)="deleteShift(record); $event.stopPropagation()" class="button is-danger" type="button">Delete</button>
+                        </td>
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    }
+
+    @if(attendanceData.length === 0 ) {
+    <div class="notification is-warning mt-4">
+        <p>No attendance records found for the selected Date.</p>
+    </div>
+
+    }
+</div>

@@ -1,0 +1,98 @@
+<div class="box">
+    <app-filtershift (sendArray)="handleArrayFromChild($event)"
+        (sendTotalHours)="handletotalHours($event)"></app-filtershift>
+
+    @if (attendanceData.length>0){
+    <div class="mt-5">
+        <h2 class="title is-4">Attendance Records</h2>
+
+
+        <div class="mb-3">
+            <button class="button is-success" (click)="exportToExcel()">
+                <span class="icon">
+                    <i class="fa fa-download"></i>
+                </span>
+                <span>Export to Excel</span>
+            </button>
+            <button class="button ml-3 is-success" (click)="viewHours()">
+                <span class="icon">
+                    <i class="fa fa-download"></i>
+                </span>
+                <span>View total Hours</span>
+            </button>
+
+        </div>
+        @if(showHours){
+        <div class="table-container">
+            <table class="table is-striped is-hoverable">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Employee Name</th>
+                        <th>Total Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (record of totalHours; track record.empID) {
+                    <tr>
+
+                        <td>{{ record.empID }}</td>
+                        <td>{{ record.empName }}</td>
+                        <td>{{ record.total_working_hours }}</td>
+
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        }
+        <div class="table-container">
+            <table class="table is-striped is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Work Duration</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (record of attendanceData; track record.log_id) {
+                    <tr [class.highlight-row]="record.is_midnight_shift == 'Yes'"
+                        [class.highlight-row1]="record.updated_at !==  null">
+
+                        <td>{{ record.empID }}</td>
+                        <td>{{ record.empName }}</td>
+                        <td>{{ record.date }}</td>
+
+                        <td style="user-select: text; cursor: text;">{{ record.check_in }}</td>
+
+                        @if (record.check_out) {
+                        <td style="user-select: text; cursor: text;">{{ record.check_out }}</td>
+                        <td>{{ record.duration }}</td>
+                        }
+                        @else {
+                        <td style="user-select: text; cursor: text;">Shift is Open</td>
+                        <td style=" user-select: text; cursor: text">----</td>
+                        }
+
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    }
+
+    @if(attendanceData.length === 0 && showTable) {
+    <div class="notification is-warning mt-4">
+        <p>No attendance records found for the selected Date.</p>
+    </div>
+    }
+</div>

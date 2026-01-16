@@ -1,0 +1,94 @@
+<div class="modern-modal-overlay" (click)="onClose()">
+    <div class="modern-modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-header-content">
+                @if(selected=='0'){
+                <h2 class="modal-title">Edit Shift</h2>
+                }
+                @if(selected=='1'){
+                <h2 class="modal-title">Delete Shift</h2>
+                }
+                <p class="modal-subtitle">Update attendance record details</p>
+            </div>
+            <button class="modal-close" (click)="onClose()" aria-label="close">
+                <span>×</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="form-label">Employee ID</label>
+                    <div class="form-input-wrapper">
+                        <input class="form-input" disabled [value]="attendanceData.empID" type="text">
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">Employee Name</label>
+                    <div class="form-input-wrapper">
+                        <input class="form-input" disabled [value]="attendanceData.empName" type="text">
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">Log In Time</label>
+                    <div class="form-input-wrapper">
+                        <input class="form-input" [(ngModel)]="Newcheckin"  placeholder="Select login time">
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">Log Out Time</label>
+                    <div class="form-input-wrapper">
+                        <input class="form-input" [(ngModel)]="NewcheckOut"  placeholder="Select logout time">
+                    </div>
+                </div>
+
+                <div class="form-field full-width">
+                    <label class="form-label">Approved By</label>
+                    <div class="form-select-wrapper">
+                        <select class="form-select" [(ngModel)]="selectedRole">
+                            <option value="">Select an option</option>
+                            <option value="manager">Manager</option>
+                            <option value="employee">Employee</option>
+                            <option value="cctv">CCTV</option>
+                            @if(roles.length > 0){
+                            @for(role of roles;track role.role_id){
+                            @if(role.role_id != 1 && role.role_id != 2 ){
+                            <option [value]="role.role_id">{{role.role_name}}</option>
+                            }
+                            }
+                            }
+                        </select>
+                        <span class="select-arrow">▼</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-secondary" (click)="onClose()" [disabled]="isLoading">Cancel</button>
+            @if(selected=='0'){
+            <button class="btn-primary" (click)="Save()" [disabled]="isLoading">
+                @if(isLoading) {
+                    <span class="btn-spinner"></span>
+                    <span>Updating...</span>
+                } @else {
+                    Update
+                }
+            </button>
+            }
+            @if(selected=='1'){
+            <button class="btn-danger" (click)="Delete()" [disabled]="isLoading">
+                @if(isLoading) {
+                    <span class="btn-spinner"></span>
+                    <span>Deleting...</span>
+                } @else {
+                    Delete
+                }
+            </button>
+            }
+        </div>
+    </div>
+</div>

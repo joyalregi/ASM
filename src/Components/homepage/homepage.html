@@ -1,0 +1,45 @@
+<section class="home-page">
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+    <div class="floating-shape shape-4"></div>
+
+    <div class="home-shell">
+        <app-navbar (selectionChange)="selection = $event" [userData]="userData"></app-navbar>
+
+        <div class="dashboard-header">
+            <div class="header-content">
+                <div class="brand-section">
+                    <div class="brand-mark">A</div>
+                    <div>
+                        <h1 class="dashboard-title">Welcome back</h1>
+                        <p class="dashboard-subtitle">Manage your attendance system efficiently</p>
+                    </div>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-primary">📊</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Active</span>
+                            <span class="stat-value">Dashboard</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="content-wrapper">
+                @if(selection=='FA'){
+                <app-attendancehome></app-attendancehome>
+                }
+                @if(selection=='shift'){
+                <app-manageshift></app-manageshift>
+                }
+                @if(selection=='logs'){
+                <app-actionlogs></app-actionlogs>
+                }
+            </div>
+        </div>
+    </div>
+</section>

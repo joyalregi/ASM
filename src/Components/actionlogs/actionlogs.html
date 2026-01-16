@@ -1,0 +1,131 @@
+<div class="logs-container">
+    <div class="box filter-box">
+        <h2 class="section-title">Filter Logs</h2>
+        <div class="form-grid">
+            <div class="field">
+                <label class="label" for="start-date">Select Starting Date:</label>
+                <div class="control">
+                    <input 
+                        class="input" 
+                        type="date" 
+                        id="start-date" 
+                        [(ngModel)]="startDate" 
+                        name="start-date"
+                        [disabled]="isLoading">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label" for="end-date">Select End Date:</label>
+                <div class="control">
+                    <input 
+                        class="input" 
+                        type="date" 
+                        id="end-date" 
+                        [(ngModel)]="endDate" 
+                        name="end-date"
+                        [disabled]="isLoading">
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <button 
+                    (click)="generateLog()" 
+                    class="button is-primary generate-btn" 
+                    type="button"
+                    [disabled]="isLoading">
+                    @if (isLoading) {
+                        <span class="btn-spinner"></span>
+                        <span>Loading...</span>
+                    } @else {
+                        Generate Log
+                    }
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="box logs-box">
+        <h2 class="section-title">Action Logs</h2>
+        
+        @if (isLoading) {
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading logs...</p>
+            </div>
+        } @else if (hasSearched && logs.length === 0) {
+            <div class="empty-state">
+                <p>No logs found for the selected date range.</p>
+            </div>
+        } @else if (logs.length > 0) {
+            <div class="logs-list">
+                @for (log of logs; track log.id || $index) {
+                    <div class="log-item" [class.update-log]="log.Action === 'UPDATE'" [class.delete-log]="log.Action === 'DELETE'">
+                        <div class="log-header">
+                            <span class="log-action-badge" [class.update-badge]="log.Action === 'UPDATE'" [class.delete-badge]="log.Action === 'DELETE'">
+                                {{ log.Action }}
+                            </span>
+                            <span class="log-date">{{ log.updated_on || log.created_at }}</span>
+                        </div>
+                        
+                        @if (log.Action === 'UPDATE') {
+                            <div class="log-content">
+                                <p class="log-user">
+                                    <strong>{{ log.Dashboard_User || 'System' }}</strong> updated employee: 
+                                    <strong class="employee-name">{{ log.EmployeeName }}</strong> shift.
+                                </p>
+                                <div class="log-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Actual Times:</span>
+                                        <span class="detail-value">
+                                            Login: {{ log.actual_login_time || 'N/A' }}, 
+                                            Logout: {{ log.actual_logout_time || 'N/A' }}
+                                        </span>
+                                    </div>
+                                    <div class="detail-row updated">
+                                        <span class="detail-label">Updated Times:</span>
+                                        <span class="detail-value">
+                                            Login: {{ log.updated_login_time || 'N/A' }}, 
+                                            Logout: {{ log.updated_logout_time || 'N/A' }}
+                                        </span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Approved by:</span>
+                                        <span class="detail-value approver">{{ log.Approver || 'N/A' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (log.Action === 'DELETE') {
+                            <div class="log-content">
+                                <p class="log-user">
+                                    <strong>{{ log.Dashboard_User || 'System' }}</strong> deleted employee: 
+                                    <strong class="employee-name">{{ log.EmployeeName }}</strong> shift.
+                                </p>
+                                <div class="log-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Original Times:</span>
+                                        <span class="detail-value">
+                                            Login: {{ log.actual_login_time || 'N/A' }}, 
+                                            Logout: {{ log.actual_logout_time || 'N/A' }}
+                                        </span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Approved by:</span>
+                                        <span class="detail-value approver">{{ log.Approver || 'N/A' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        } @else {
+            <div class="empty-state">
+                <p>Select date range and click "Generate Log" to view action logs.</p>
+            </div>
+        }
+    </div>
+</div>
