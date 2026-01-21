@@ -25,26 +25,26 @@ export class Modal implements OnChanges {
   constructor(
     private api: Attendanceservice,
     private snackBar: MatSnackBar,
-    private auth: Authservice
+    private auth: Authservice,
   ) {}
   onClose() {
-    console.log("Dysonnn")
+    console.log('Dysonnn');
     this.close.emit();
   }
   @Input() attendanceData: any = {};
   @Input() selected: String = '';
-  
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['attendanceData'] && this.attendanceData) {
       this.initializeData();
     }
   }
-  
+
   ngOnInit() {
     this.initializeData();
     this.loadRoles();
   }
-  
+
   /**
    * Normalize various date string shapes into a datetime-local value.
    * Accepts values like "2024-05-01T09:00:00Z" or "2024-05-01 09:00:00".
@@ -70,7 +70,7 @@ export class Modal implements OnChanges {
     this.actualCheckin = null;
     this.actualcheckout = null;
     this.selectedRole = '';
-    
+
     if (this.attendanceData) {
       const logoutRaw =
         this.attendanceData.Logout_Time ||
@@ -88,7 +88,7 @@ export class Modal implements OnChanges {
     }
     console.log('Initialized checkin:', this.Newcheckin, 'checkout:', this.NewcheckOut);
   }
-  
+
   loadRoles() {
     this.api.getRole().subscribe({
       next: (data) => {
@@ -116,7 +116,9 @@ export class Modal implements OnChanges {
     const newCheckInISO = this.Newcheckin ? new Date(this.Newcheckin).toISOString() : null;
     const newCheckOutISO = this.NewcheckOut ? new Date(this.NewcheckOut).toISOString() : null;
     const actualCheckInISO = this.actualCheckin ? new Date(this.actualCheckin).toISOString() : null;
-    const actualCheckOutISO = this.actualcheckout ? new Date(this.actualcheckout).toISOString() : null;
+    const actualCheckOutISO = this.actualcheckout
+      ? new Date(this.actualcheckout).toISOString()
+      : null;
 
     if (actualCheckInISO === newCheckInISO && actualCheckOutISO === newCheckOutISO) {
       this.showAlert('No changes in login time and logout time detected');
@@ -155,7 +157,7 @@ export class Modal implements OnChanges {
         }),
         finalize(() => {
           this.isLoading = false; // Reset loading state
-        })
+        }),
       )
       .subscribe({
         next: (data) => {
@@ -205,12 +207,12 @@ export class Modal implements OnChanges {
       this.showAlert('Kindly specify who approved this.');
       return;
     }
-    
+
     if (!this.attendanceData || !this.attendanceData.log_id) {
       this.showAlert('Invalid attendance data. Cannot delete.');
       return;
     }
-    
+
     console.log('Deleting log ID:', this.attendanceData.log_id);
     this.isLoading = true;
 
@@ -231,7 +233,7 @@ export class Modal implements OnChanges {
         }),
         finalize(() => {
           this.isLoading = false;
-        })
+        }),
       )
       .subscribe({
         next: (data) => {

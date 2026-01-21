@@ -9,7 +9,8 @@
                 </div>
                 <span class="brand-text">ATTENDO</span>
             </div>
-            <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [attr.aria-expanded]="isMobileMenuOpen" aria-label="Toggle menu">
+            <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [attr.aria-expanded]="isMobileMenuOpen"
+                aria-label="Toggle menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -18,17 +19,20 @@
 
         <div class="navbar-menu" [class.is-active]="isMobileMenuOpen">
             <div class="navbar-links">
-                <a (click)="orderClick('FA'); closeMobileMenu()" class="nav-link" [class.active]="currentSelection === 'FA'">
+                <a (click)="orderClick('FA'); closeMobileMenu()" class="nav-link"
+                    [class.active]="currentSelection === 'FA'">
                     <span class="nav-icon">📊</span>
                     <span>Fetch Attendance</span>
                 </a>
 
-                <a (click)="orderClick('shift'); closeMobileMenu()" class="nav-link" [class.active]="currentSelection === 'shift'">
+                <a (click)="orderClick('shift'); closeMobileMenu()" class="nav-link"
+                    [class.active]="currentSelection === 'shift'">
                     <span class="nav-icon">🕐</span>
-                    <span>Shift</span>
+                    <span>Manage Shift</span>
                 </a>
 
-                <a (click)="orderClick('logs'); closeMobileMenu()" class="nav-link" [class.active]="currentSelection === 'logs'">
+                <a (click)="orderClick('logs'); closeMobileMenu()" class="nav-link"
+                    [class.active]="currentSelection === 'logs'">
                     <span class="nav-icon">📋</span>
                     <span>See Logs</span>
                 </a>
